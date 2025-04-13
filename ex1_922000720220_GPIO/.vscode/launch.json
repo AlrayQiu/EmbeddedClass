@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "build/application.elf",
+            "name": "Debug with OpenOCD",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "searchDir": [],
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "gdbPath": "/usr/bin/arm-none-eabi-gdb"
+        }
+    ]
+}
