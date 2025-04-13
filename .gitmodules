@@ -13,3 +13,6 @@
 [submodule "ex5_922000720220_I2C/lvgl"]
 	path = ex5_922000720220_I2C/lvgl
 	url = https://github.com/AlrayQiu/lvgl_for_rtthread_spark_one.git
+[submodule "ex6_922000720220_DMA/lvgl"]
+	path = ex6_922000720220_DMA/lvgl
+	url = https://github.com/AlrayQiu/lvgl_for_rtthread_spark_one.git
