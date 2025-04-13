@@ -1,3 +1,6 @@
 [submodule "ex1_922000720220_GPIO/lvgl"]
 	path = ex1_922000720220_GPIO/lvgl
 	url = https://github.com/AlrayQiu/lvgl_for_rtthread_spark_one.git
+[submodule "ex2_922000720220_Uart/lvgl"]
+	path = ex2_922000720220_Uart/lvgl
+	url = https://github.com/AlrayQiu/lvgl_for_rtthread_spark_one.git
