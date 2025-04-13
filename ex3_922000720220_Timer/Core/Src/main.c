@@ -21,9 +21,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lvgl.h"
+#include "lcd.h"
+#include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_gpio.h"
 #include "stm32f4xx_hal_tim.h"
+#include <lvgl.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -53,11 +55,13 @@ TIM_HandleTypeDef htim7;
 SRAM_HandleTypeDef hsram3;
 
 /* USER CODE BEGIN PV */
-uint32_t hour = 8;
-uint32_t min = 10;
-uint32_t second = 0;
+volatile uint8_t hour = 8;
+volatile uint8_t min = 10;
+volatile uint8_t second = 0;
+volatile uint16_t millisecond = 0;
 
-bool last_key[3], last_key_state[3], key_state[3];
+bool last_key[3] = {1, 1, 1}, last_key_state[3] = {1, 1, 1},
+     key_state[3] = {1, 1, 1};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,7 +74,10 @@ static void MX_TIM7_Init(void);
 /* USER CODE BEGIN PFP */
 
 static inline void norm_time() {
-  int tmp = second / 60;
+  int tmp = millisecond / 1000;
+  millisecond = millisecond % 1000;
+  second += tmp;
+  tmp = second / 60;
   second = second % 60;
   min += tmp;
   tmp = min / 60;
@@ -104,8 +111,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
       }
       last_key[2] = key_state[2];
     }
+    HAL_TIM_Base_Start_IT(&htim7);
   } else if (htim->Instance == htim6.Instance) {
-    second += 1;
+    millisecond += 1;
+    HAL_TIM_Base_Start_IT(&htim6);
   } else
     return;
   norm_time();
@@ -151,16 +160,20 @@ int main(void) {
   MX_TIM6_Init();
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start(&htim6);
-  HAL_TIM_Base_Start(&htim7);
+  HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_Base_Start_IT(&htim7);
   lv_init();
-  lv_port_disp_init();
-
+  lv_obj_t *label = lv_label_create(lv_scr_act());
+  lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1) {
+
+    lv_label_set_text_fmt(label, "%d:%d:%d", hour, min, second);
+    lv_task_handler();
+    HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
