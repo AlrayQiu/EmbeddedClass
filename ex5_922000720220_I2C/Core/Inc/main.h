@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-extern I2C_HandleTypeDef hi2c2;
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -49,24 +49,16 @@ extern I2C_HandleTypeDef hi2c2;
 
 /* USER CODE END EM */
 
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+extern I2C_HandleTypeDef hi2c2;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
 #define GPIO_LCD_BL_Pin GPIO_PIN_9
 #define GPIO_LCD_BL_GPIO_Port GPIOF
-#define BTN_LEFT_Pin GPIO_PIN_0
-#define BTN_LEFT_GPIO_Port GPIOC
-#define BTN_LEFT_EXTI_IRQn EXTI0_IRQn
-#define BTN_RIGHT_Pin GPIO_PIN_4
-#define BTN_RIGHT_GPIO_Port GPIOC
-#define BTN_RIGHT_EXTI_IRQn EXTI4_IRQn
 #define GPIO_LCD_RST_Pin GPIO_PIN_3
 #define GPIO_LCD_RST_GPIO_Port GPIOD
 #define GPIO_LCD_TE_Pin GPIO_PIN_6

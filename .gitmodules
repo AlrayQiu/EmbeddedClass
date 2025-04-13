@@ -10,3 +10,6 @@
 [submodule "ex4_922000720220_PWM/lvgl"]
 	path = ex4_922000720220_PWM/lvgl
 	url = https://github.com/AlrayQiu/lvgl_for_rtthread_spark_one.git
+[submodule "ex5_922000720220_I2C/lvgl"]
+	path = ex5_922000720220_I2C/lvgl
+	url = https://github.com/AlrayQiu/lvgl_for_rtthread_spark_one.git
